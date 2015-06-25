@@ -23,14 +23,8 @@ var express = require('express'),
     request = require('request'),
     path = require('path'),
     // Environmental variable: username, password, etc.
-    // Need two copies because Watson SDK deletes version key
-    config = JSON.parse(process.env.WATSON_CONFIG),
     authorizationConfig = JSON.parse(process.env.WATSON_CONFIG),
     extend = require('util')._extend;
-
-// if bluemix text-to-speech credentials exist, then override local
-var credentials = extend(config, bluemix.getServiceCreds('text_to_speech'));
-var textToSpeech = new watson.text_to_speech(credentials);
 
 // if bluemix authorization credentials exist, then override local
 var authorizationCredentials = extend(authorizationConfig, bluemix.getServiceCreds('authorization'));
@@ -54,7 +48,7 @@ app.get('/token', function(req, res) {
   console.log('Fetching token');
   var params = {
     // Specify URL of resource required
-    url: 'https://' + credentials.hostname + '/text-to-speech-beta/api'
+    url: 'https://' + credentials.hostname + '/speech-to-text/api'
   }
   authorization.getToken(params, function(token) {
     console.log('Fetching token', token);
