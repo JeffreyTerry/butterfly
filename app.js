@@ -20,8 +20,8 @@ var express = require('express'),
     app = express(),
     errorhandler = require('errorhandler'),
     bluemix = require('./config/bluemix'),
-    request = require('request'),
     path = require('path'),
+    watson = require('watson-developer-cloud'),
     // Environmental variable: username, password, etc.
     authorizationConfig = JSON.parse(process.env.WATSON_CONFIG),
     extend = require('util')._extend;
