@@ -22,14 +22,19 @@ var express = require('express'),
     bluemix = require('./config/bluemix'),
     request = require('request'),
     path = require('path'),
-    // environmental variable points to demo's json config file
+    // Environmental variable: username, password, etc.
+    // Need two copies because Watson SDK deletes version key
     config = JSON.parse(process.env.WATSON_CONFIG),
+    authorizationConfig = JSON.parse(process.env.WATSON_CONFIG),
     extend = require('util')._extend;
 
-// if bluemix credentials exists, then override local
+// if bluemix text-to-speech credentials exist, then override local
 var credentials = extend(config, bluemix.getServiceCreds('text_to_speech'));
+var textToSpeech = new watson.text_to_speech(credentials);
 
-console.log('Starting app with credentials: ', credentials);
+// if bluemix authorization credentials exist, then override local
+var authorizationCredentials = extend(authorizationConfig, bluemix.getServiceCreds('authorization'));
+var authorization = new watson.authorization(authorizationCredentials);
 
 // Setup static public directory
 app.use(express.static(path.join(__dirname , './public')));
@@ -39,28 +44,22 @@ if (!process.env.VCAP_SERVICES) {
   app.use(errorhandler());
 }
 
-// serve home page
+// Serve home page
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, './public', 'index.html'));
 });
 
 // Get token from Watson using your credentials
 app.get('/token', function(req, res) {
-    console.log('fetching token');
-    request.get({'url': 
-      'https://' 
-        + credentials.hostname 
-        + '/authorization/api/v1/token?url=' 
-        + 'https://' + credentials.hostname + '/speech-to-text-beta/api',
-      'auth': {
-        'user': credentials.username,
-        'pass': credentials.password,
-        'sendImmediately': true
-      }
-    }, function(err, response, body) {
-      res.send(body);
-    }
-    );
+  console.log('Fetching token');
+  var params = {
+    // Specify URL of resource required
+    url: 'https://' + credentials.hostname + '/text-to-speech-beta/api'
+  }
+  authorization.getToken(params, function(token) {
+    console.log('Fetching token', token);
+    res.send(token);
+  });
 });
 
 
