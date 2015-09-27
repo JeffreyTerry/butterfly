@@ -72,10 +72,6 @@ exports.handleMicrophone = function(token, model, mic, callback) {
           next_word.duration = end_time - begin_time;
           speech.words.push(next_word);
         }
-
-        // console.log(final_message);
-        // console.log(speech_text);
-
         // We don't need this -- it just updates the DOM with the incoming message
         // baseString = display.showResult(msg, baseString, model);
         // baseJSON = display.showJSON(msg, baseJSON);
@@ -88,18 +84,33 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   }
 
   function sendWordsToKeen(words) {
+    if (words.length == 0) {
+      return;
+    }
 
-    console.log('words', words[0]);
+    var speech_id = words[0].speech_id;
     var multipleEvents = {
       "words": words
     };
-    console.log(keenClient);
+
     keenClient.addEvents(multipleEvents, function(err, res){
       if (err) {
-        console.log('error?', err);
+        console.log('err', err);
       }
       else {
-        console.log('success!', res);
+        var query = new Keen.Query("count", {
+          eventCollection: "words",
+          filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
+          groupBy: "text",
+          timeframe: "this_14_days",
+          timezone: "UTC"
+        });
+
+        keenClient.draw(query, document.getElementById('word-frequency-bar-chart'), {
+          // Custom configuration here
+        });
+
+        $('#chart-container').css('display', 'block');
       }
     });
     // var api_key = '2fc76068ea39562a5e3c8f3ae5c10a0588bf074246861b36fa17150bd21dd01140ac051b2bae4ae1158e217857baf73112120d4f90a72b56e4c1c97d3f4b0e248b905427cfe8182552bac3b91ae72d7d062ab20412681ac39844918a4ca2d00c4075ae048030fe8fc95212774010db65';
@@ -125,15 +136,14 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   }
 
   function onClose(evt) {
-    console.log('Closing...');
-    console.log('Speech', speech);
     // var salt = bcrypt.genSaltSync(10);
     // var hash = bcrypt.hashSync(speech.transcript, salt);
     var hash = '' + new Date();
     for(var i = 0; i < speech.words.length; ++i) {
       speech.words[i].speech_id = hash;
     }
-    console.log(hash);
+    console.log(speech.transcript);
+    $('#resultsText').html(speech.transcript);
     sendWordsToKeen(speech.words);
     // console.log('Mic socket close: ', evt);
     // TODO: send stuff to keen io

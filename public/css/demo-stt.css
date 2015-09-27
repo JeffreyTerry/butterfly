@@ -178,6 +178,7 @@ ol ol li:last-child {margin-bottom:0;}
 #recordButton {
     border-bottom-left-radius: 4px;
     border-top-left-radius: 4px;
+    margin-right: 2px;
 }
 
 #fileUploadTarget {
