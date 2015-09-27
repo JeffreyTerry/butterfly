@@ -190,11 +190,13 @@ ol ol li:last-child {margin-bottom:0;}
 #recordButton {
     background-color: #D62030;
     border-color: #D62030;
+    border-radius: 3px;
 }
 
 #fileUploadTarget {
     background-color: #868686;
     border-color: #868686;
+    border-radius: 3px;
 }
 
 #recordButton.btn-success:hover {
@@ -217,6 +219,41 @@ ol ol li:last-child {margin-bottom:0;}
 
 #loading-bar {
   display: none;
+}
+
+.speech-text-box {
+  background-color: white !important;
+  border-radius: 3px;
+  border: 1px solid #E2E2E2;
+}
+
+.pace-chart-title {
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  border-bottom: none !important;
+  text-align: center;
+  background-color: white;
+  color: #437f97 !important;
+}
+
+.pace-chart-notes {
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  border-top: none !important;
+  text-align: center;
+  background-color: white;
+  color: #437f97 !important;
+}
+
+.pace-chart-stage {
+  padding: 0 !important;
+}
+
+.pace-chart-widget > div {
+  border: none !important;
+  color: #437f97 !important;
+  background-color: white !important;
+  border-radius: 0 !important;
 }
 
 /* ----- Loading Bar -------- */
