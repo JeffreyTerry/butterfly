@@ -142,7 +142,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     for(var i = 0; i < speech.words.length; ++i) {
       speech.words[i].speech_id = hash;
     }
-    $('#resultsText').val(speech.transcript);
+    $('#resultsText').html(speech.transcript);
     sendWordsToKeen(speech.words);
     // console.log('Mic socket close: ', evt);
     // TODO: send stuff to keen io
