@@ -210,3 +210,7 @@ ol ol li:last-child {margin-bottom:0;}
 #chart-container {
     display: none;
 }
+
+#loading-bar {
+  display: none;
+}

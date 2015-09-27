@@ -104,22 +104,24 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     //       console.log('err', err);
     //     }
     //     else {
-          setTimeout(function() {
-            console.log(speech_id);
-            var query = new Keen.Query("count", {
-              eventCollection: "words",
-              filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
-              groupBy: "text",
-              timeframe: "this_14_days",
-              timezone: "UTC"
-            });
+    $('#loading-bar').css('display', 'block');
+    setTimeout(function() {
+      console.log(speech_id);
+      var query = new Keen.Query("count", {
+        eventCollection: "words",
+        filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
+        groupBy: "text",
+        timeframe: "this_14_days",
+        timezone: "UTC"
+      });
 
-            keenClient.draw(query, document.getElementById('grid-1-1'), {
-              // Custom configuration here
-            });
+      keenClient.draw(query, document.getElementById('grid-1-1'), {
+        // Custom configuration here
+      });
 
-            $('#chart-container').css('display', 'block');
-          }, 10000);
+      $('#loading-bar').css('display', 'none');
+      $('#chart-container').css('display', 'block');
+    }, 10000);
     //     }
     //   });
     // });

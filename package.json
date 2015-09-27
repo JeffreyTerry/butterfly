@@ -1,7 +1,7 @@
 {
-  "name": "SpeechToTextBrowserStarterApp",
+  "name": "butterfly",
   "version": "0.2.1",
-  "description": "A sample browser app for Bluemix that use the speech-to-text service, fetching a token via Node.js",
+  "description": "A data-driven speech improvement tool.",
   "dependencies": {
     "body-parser": "~1.10.2",
     "connect": "~3.3.5",
