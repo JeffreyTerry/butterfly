@@ -49,7 +49,9 @@ app.set('view engine', 'jade');
 app.get('/', function (req, res) {
   res.render('index.jade');
 });
-
+app.get('/charts',function(req, res){
+    res.render('charts.jade');
+});
 // Get token from Watson using your credentials
 app.get('/token', function(req, res) {
   authorization.getToken({url: credentials.url}, function(err, token) {

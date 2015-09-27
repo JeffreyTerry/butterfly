@@ -6,6 +6,7 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     title butterfly
     link(href='css/watson-bootstrap-style.css', rel='stylesheet')
+    link(rel='stylesheet', type='text/css', href='css/keen-dashboards.css')
     link(href='css/browser-compatibility.css', rel='stylesheet')
     link(href='css/demo-stt.css', rel='stylesheet')
     link(href='https://fonts.googleapis.com/css?family=Courgette', rel='stylesheet', type='text/css')
@@ -58,23 +59,17 @@ html(lang='en')
       .row#chart-container
         .col-xs-12
           .row
-            .col-sm-6.col-md-3
-              .chart-wrapper
-                .chart-title
-                  | Cell Title
-                .chart-stage
-                  #grid-1-1
-                    // chart goes here!
-                .chart-notes
-                  | Notes about this chart
+              .col-xs-12
+                  .chart-wrapper
+                      .chart-title
+                          | Word Frequency 
+                      .chart-stage
+                          #grid-1-1
 
-        .row
-          .col-lg-12.col-md-12.col-sm-12
-            .audioParent
-              audio.audio(style='display:none', controls='')
-                | Your browser does not support the audio element.
-
-      // For file upload dialog in toolbar
+                      // chart goes here!
+                      .chart-notes
+                          | Notes about this chart
+            
       input#fileUploadDialog(style='display:none', type='file')
       // Place js files at the end of the document, with fallbacks for CDNs
       script(src='https://code.jquery.com/jquery-1.11.3.min.js')

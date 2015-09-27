@@ -1,0 +1,101 @@
+doctype html
+html
+  head
+    title Dashboard Starter UI, by Keen IO
+    link(rel='stylesheet', type='text/css', href='css/keen-dashboards.css')
+    link(href='css/watson-bootstrap-style.css', rel='stylesheet')
+    link(href='css/browser-compatibility.css', rel='stylesheet')
+    link(href='css/demo-stt.css', rel='stylesheet')
+  body.application
+    .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='../')
+            span.glyphicon.glyphicon-chevron-left
+          a.navbar-brand(href='./') Dashboard Starter UI
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-left
+            li
+              a(href='https://keen.io') Home
+            li
+              a(href='https://keen.io/team') Team
+            li
+              a(href='https://github.com/keenlabs/dashboards/tree/gh-pages/examples/starter-kit') Source
+            li
+              a(href='https://groups.google.com/forum/#!forum/keen-io-devs') Community
+            li
+              a(href='http://stackoverflow.com/questions/tagged/keen-io?sort=newest&pageSize=15') Technical Support
+    .container-fluid
+      .row
+        .col-sm-8
+          .chart-wrapper
+            .chart-title
+              | Pageviews by browser (past 24 hours)
+            .chart-stage
+              #chart-01
+            .chart-notes
+              | This is a sample text region to describe this chart.
+        .col-sm-4
+          .chart-wrapper
+            .chart-title
+              | Pageviews by browser (past 5 days)
+            .chart-stage
+              #chart-02
+            .chart-notes
+              | Notes go down here
+      .row
+        .col-sm-4
+          .chart-wrapper
+            .chart-title
+              | Impressions by advertiser
+            .chart-stage
+              #chart-03
+            .chart-notes
+              | Notes go down here
+        .col-sm-4
+          .chart-wrapper
+            .chart-title
+              | Impressions by device
+            .chart-stage
+              #chart-04
+            .chart-notes
+              | Notes go down here
+        .col-sm-4
+          .chart-wrapper
+            .chart-title
+              | Impressions by country
+            .chart-stage
+              #chart-05
+            .chart-notes
+              | Notes go down here
+      .row
+        .col-sm-3
+          .chart-wrapper
+            img(data-src='holder.js/100%x150/white')
+        .col-sm-3
+          .chart-wrapper
+            img(data-src='holder.js/100%x150/white')
+        .col-sm-3
+          .chart-wrapper
+            img(data-src='holder.js/100%x150/white')
+        .col-sm-3
+          .chart-wrapper
+            img(data-src='holder.js/100%x150/white')
+      hr
+      p.small.text-muted
+        | Built with ♥ by 
+        a(href='https://keen.io') Keen IO
+    input#fileUploadDialog(style='display:none', type='file')
+    // Place js files at the end of the document, with fallbacks for CDNs
+    script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+    script.
+      window.jQuery || document.write('<script src="js/jquery-1.11.3.min.js"><\\/script>')
+    script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+    script.
+      (typeof $().emulateTransitionEnd == 'function')|| document.write('<script src="js/bootstrap-3.3.5.min.js"><\\/script>')
+    script(src='js/main.js')
