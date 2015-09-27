@@ -3,6 +3,7 @@ var effects = require('./views/effects');
 var display = require('./views/displaymetadata');
 var hideError = require('./views/showerror').hideError;
 var initSocket = require('./socket').initSocket;
+var handler = require('./handler');
 
 exports.handleFileUpload = function(token, model, file, contentType, callback, onend) {
 
@@ -42,6 +43,7 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
 
     function onOpen(socket) {
       console.log('Socket opened');
+      handler.onOpen(socket);
     }
 
     function onListening(socket) {
@@ -50,11 +52,7 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
     }
 
     function onMessage(msg) {
-      if (msg.results) {
-        // Convert to closure approach
-        baseString = display.showResult(msg, baseString, model);
-        baseJSON = display.showJSON(msg, baseJSON);
-      }
+      handler.onMessage(msg);
     }
 
     function onError(evt) {
@@ -66,6 +64,7 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
     function onClose(evt) {
       localStorage.setItem('currentlyDisplaying', false);
       onend(evt);
+      handler.onClose(evt);
       console.log('Socket closing: ', evt);
     }
 

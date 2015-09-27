@@ -35,29 +35,53 @@ html(lang='en')
         .header-bottom-divider
     .container
       .row
-        .col-xs-6
-            button#recordButton.btn.btn-success.btn-block(type='button')
-              img#microphoneIcon.icon(src='images/microphone.svg')
-              span.nav-label Start Presentation
-        .col-xs-6
-          button#fileUploadTarget.btn.btn-success.btn-block(type='button')
-            img.icon(src='images/upload.svg')
-            span.nav-label Select File
-          //- // Buttons
-          //- .form-group(style='margin: auto;')
-          //-   .center-block.btn-group(role='group', aria-label='...')
+        .col-xs-12
+          .row
+            .col-xs-6
+                button#recordButton.btn.btn-success.btn-block(type='button')
+                  img#microphoneIcon.icon(src='images/microphone.svg')
+                  span.nav-label Start Presentation
+            .col-xs-6
+              button#fileUploadTarget.btn.btn-success.btn-block(type='button')
+                img.icon(src='images/upload.svg')
+                span.nav-label Select File
+              //- // Buttons
+              //- .form-group(style='margin: auto;')
+              //-   .center-block.btn-group(role='group', aria-label='...')
       .row#speech-container
         .col-xs-12
           .row
-            .well.speech-text-box
-              #resultsText
-      .row#loading-bar
-        .col-xs-12
-          .progress
-            .progress-bar.progress-bar-striped.active(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%;')
-              span.sr-only Loading
+            .col-xs-12
+              .row
+                .col-xs-12.well.speech-text-box
+                  #resultsText
       .row#chart-container
         .col-xs-12
+          .row
+              .col-xs-6
+                  .chart-wrapper
+                      .chart-title.pace-chart-title
+                          | YOUR PACE
+                      .chart-stage.pace-chart-stage
+                          #your-pace.pace-chart-widget
+
+                      // chart goes here!
+                      .chart-notes#your-pace-chart-notes
+              .col-xs-6
+                  .chart-wrapper
+                      .chart-title.pace-chart-title
+                          | PROFESSIONAL PACE
+                      .chart-stage.pace-chart-stage
+                          #average-pace.pace-chart-widget
+
+                      // chart goes here!
+                      .chart-notes
+                          | The average professional speaker talks at 150 wpm
+          .row#loading-bar
+            .col-xs-12
+              .progress
+                .progress-bar.progress-bar-striped.active(role='progressbar', aria-valuenow='100', aria-valuemin='0', aria-valuemax='100', style='width: 100%;')
+                  span.sr-only Loading
           .row
               .col-xs-12
                   .chart-wrapper
