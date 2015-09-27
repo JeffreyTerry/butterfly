@@ -52,12 +52,19 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     };
   }
 
+  var speech_text = '';
   function onMessage(msg, socket) {
-    console.log('Mic socket msg: ', msg);
+    // console.log('Mic socket msg: ', msg);
     if (msg.results) {
-      // Convert to closure approach
-      baseString = display.showResult(msg, baseString, model);
-      baseJSON = display.showJSON(msg, baseJSON);
+      if (msg.results && msg.results[0] && msg.results[0].final) {
+        var final_message = msg.results[0].alternatives[0];
+        speech_text += final_message.transcript;
+        console.log(speech_text);
+
+        // We don't need this -- it just updates the DOM with the incoming message
+        // baseString = display.showResult(msg, baseString, model);
+        // baseJSON = display.showJSON(msg, baseJSON);
+      }
     }
   }
 
@@ -66,7 +73,8 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   }
 
   function onClose(evt) {
-    console.log('Mic socket close: ', evt);
+    // console.log('Mic socket close: ', evt);
+    // TODO: send stuff to keen io
   }
 
   initSocket(options, onOpen, onListening, onMessage, onError, onClose);
