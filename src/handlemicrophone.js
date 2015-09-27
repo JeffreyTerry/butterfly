@@ -48,7 +48,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
 
     mic.onAudio = function(blob) {
       if (socket.readyState < 2) {
-        socket.send(blob)
+        socket.send(blob);
       }
     };
   }
@@ -56,12 +56,15 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   var speech = {};
   speech.transcript = '';
   speech.words = [];
+  var hash = '' + new Date();
   function onMessage(msg, socket) {
     // console.log('Mic socket msg: ', msg);
+    $('#speech-container').css('display', 'block');
     if (msg.results) {
       if (msg.results && msg.results[0] && msg.results[0].final) {
         var final_message = msg.results[0].alternatives[0];
         speech.transcript += final_message.transcript;
+        $('#resultsText').html(speech.transcript);
         for(var i = 0; i < final_message.word_confidence.length; ++i) {
           var next_word = {};
           next_word.text = final_message.word_confidence[i][0];
@@ -70,6 +73,8 @@ exports.handleMicrophone = function(token, model, mic, callback) {
           var end_time = final_message.timestamps[i][2];
           next_word.time = begin_time;
           next_word.duration = end_time - begin_time;
+          next_word.speech_id = hash;
+          keenClient.addEvent("words", next_word);
           speech.words.push(next_word);
         }
         // We don't need this -- it just updates the DOM with the incoming message
@@ -93,26 +98,31 @@ exports.handleMicrophone = function(token, model, mic, callback) {
       "words": words
     };
 
-    keenClient.addEvents(multipleEvents, function(err, res){
-      if (err) {
-        console.log('err', err);
-      }
-      else {
-        var query = new Keen.Query("count", {
-          eventCollection: "words",
-          // filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
-          groupBy: "text",
-          timeframe: "this_14_days",
-          timezone: "UTC"
-        });
+    // Keen.ready(function() {
+    //   keenClient.addEvents(multipleEvents, function(err, res){
+    //     if (err) {
+    //       console.log('err', err);
+    //     }
+    //     else {
+          setTimeout(function() {
+            console.log(speech_id);
+            var query = new Keen.Query("count", {
+              eventCollection: "words",
+              filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
+              groupBy: "text",
+              timeframe: "this_14_days",
+              timezone: "UTC"
+            });
 
-        keenClient.draw(query, document.getElementById('grid-1-1'), {
-          // Custom configuration here
-        });
+            keenClient.draw(query, document.getElementById('grid-1-1'), {
+              // Custom configuration here
+            });
 
-        $('#chart-container').css('display', 'block');
-      }
-    });
+            $('#chart-container').css('display', 'block');
+          }, 10000);
+    //     }
+    //   });
+    // });
     // var api_key = '2fc76068ea39562a5e3c8f3ae5c10a0588bf074246861b36fa17150bd21dd01140ac051b2bae4ae1158e217857baf73112120d4f90a72b56e4c1c97d3f4b0e248b905427cfe8182552bac3b91ae72d7d062ab20412681ac39844918a4ca2d00c4075ae048030fe8fc95212774010db65';
     // var keen_url = 'https://api.keen.io/3.0/projects/5606f3f490e4bd7b0e0e1ddc/events/words';
     // $.ajax({
@@ -138,10 +148,6 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   function onClose(evt) {
     // var salt = bcrypt.genSaltSync(10);
     // var hash = bcrypt.hashSync(speech.transcript, salt);
-    var hash = '' + new Date();
-    for(var i = 0; i < speech.words.length; ++i) {
-      speech.words[i].speech_id = hash;
-    }
     $('#resultsText').html(speech.transcript);
     sendWordsToKeen(speech.words);
     // console.log('Mic socket close: ', evt);
