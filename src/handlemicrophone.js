@@ -84,7 +84,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   }
 
   function sendWordsToKeen(words) {
-    if (words.length == 0) {
+    if (!words || words.length == 0) {
       return;
     }
 
@@ -100,13 +100,13 @@ exports.handleMicrophone = function(token, model, mic, callback) {
       else {
         var query = new Keen.Query("count", {
           eventCollection: "words",
-          filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
+          // filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
           groupBy: "text",
           timeframe: "this_14_days",
           timezone: "UTC"
         });
 
-        keenClient.draw(query, document.getElementById('word-frequency-bar-chart'), {
+        keenClient.draw(query, document.getElementById('grid-1-1'), {
           // Custom configuration here
         });
 
@@ -142,8 +142,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     for(var i = 0; i < speech.words.length; ++i) {
       speech.words[i].speech_id = hash;
     }
-    console.log(speech.transcript);
-    $('#resultsText').html(speech.transcript);
+    $('#resultsText').val(speech.transcript);
     sendWordsToKeen(speech.words);
     // console.log('Mic socket close: ', evt);
     // TODO: send stuff to keen io
