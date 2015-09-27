@@ -54,15 +54,42 @@ html(lang='en')
                 button#fileUploadTarget.button-row.btn.btn-success.nav-inverse-color.center-block
                   img.icon(src='images/upload.svg')
                   span.nav-label Select File
-        .col-lg-12.col-md-12.col-sm-12    
-          h2 Transcribe Audio
-          .col-lg-8.col-md-12.col-sm-12
-            p.help-block(style='padding-right: 3em;')
-              | Use your microphone (compatible only with 
-              a(href='https://www.google.com/intl/en/chrome/browser/desktop/') Google Chrome
-              |  and 
-              a(href='https://www.mozilla.org/en-US/firefox/new/') Mozilla Firefox
-              | ), upload pre-recorded audio (WAV containing uncompressed audio or FLAC file formats), drag and drop recorded audio onto the page, or use the audio samples provided. The returned text includes metadata that provides the timestamps for start and end times of individual words, confidence scores behind those words, and alternative hypotheses for phrases.
+        .col-lg-12.col-md-12.col-sm-12
+          .well
+            form.form-horizontal(autocomplete='off')
+              div(role='tabpanel')
+                // Nav tabs
+                ul.nav.nav-tabs(role='tablist')
+                  li.active(role='presentation')
+                    a(href='#home2', aria-controls='home', role='tab', data-toggle='tab') Text
+                .hr-tab
+                fieldset
+                  .row.error-row
+                    .col-lg-12
+                      #errorAlert
+                        span#errorMessage
+                        a#errorClose.pull-right(href='#') ×
+                  .row.notification-row
+                    .col-lg-12
+                      #notificationAlert
+                        span#notificationMessage
+                        a#notificationClose.pull-right(href='#') ×
+                  .form-group.row.tabpanel-row
+                    .col-lg-12
+                      .tab-content
+                        #home2.tab-pane.active(role='tabpanel')
+                          textarea#resultsText(readonly='')
+                    // .col-lg-12 
+          .col-sm-6.col-md-3
+            .chart-wrapper
+              .chart-title
+                | Cell Title
+              .chart-stage
+                #word-frequency-bar-chart
+                  // chart goes here!
+              .chart-notes
+                | Notes about this chart
+
         // .col-lg-12
         .row
           .col-lg-4.col-md-6.col-sm-12
