@@ -35,7 +35,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     'word_confidence': true,
     'timestamps': true,
     'max_alternatives': 3,
-    'inactivity_timeout': 600    
+    'inactivity_timeout': 600
   };
   options.model = model;
 
@@ -117,6 +117,12 @@ exports.handleMicrophone = function(token, model, mic, callback) {
 
       keenClient.draw(query, document.getElementById('grid-1-1'), {
         // Custom configuration here
+        chartType: "columnchart",
+        height: 500,
+        width: 'auto',
+        chartOptions: {
+          isStacked: true
+        }
       });
 
       $('#loading-bar').css('display', 'none');
