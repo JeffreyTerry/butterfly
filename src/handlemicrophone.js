@@ -1,12 +1,17 @@
-
 'use strict';
 
 var initSocket = require('./socket').initSocket;
 var display = require('./views/displaymetadata');
 var $ = require('jquery');
+var timer = require('./timer.js')
 var keenClient = require('./keen').client;
+var timer = new timer();
 
 exports.handleMicrophone = function(token, model, mic, callback) {
+  timer.start();
+  timer.addEventListener('secondsUpdated', function(e) {
+    $('#timer').html(timer.getTimeValues().toString());
+  });
 
   if (model.indexOf('Narrowband') > -1) {
     var err = new Error('Microphone transcription cannot accomodate narrowband models, please select another');
@@ -57,6 +62,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
   speech.transcript = '';
   speech.words = [];
   var hash = '' + new Date();
+
   function onMessage(msg, socket) {
     // console.log('Mic socket msg: ', msg);
     $('#speech-container').css('display', 'block');
@@ -65,7 +71,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
         var final_message = msg.results[0].alternatives[0];
         speech.transcript += final_message.transcript;
         $('#resultsText').html(speech.transcript);
-        for(var i = 0; i < final_message.word_confidence.length; ++i) {
+        for (var i = 0; i < final_message.word_confidence.length; ++i) {
           var next_word = {};
           next_word.text = final_message.word_confidence[i][0];
           next_word.confidence = final_message.word_confidence[i][1];
@@ -92,7 +98,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
     if (!words || words.length == 0) {
       return;
     }
-
+    timer.stop();
     var speech_id = words[0].speech_id;
     var multipleEvents = {
       "words": words
@@ -109,7 +115,11 @@ exports.handleMicrophone = function(token, model, mic, callback) {
       console.log(speech_id);
       var query = new Keen.Query("count", {
         eventCollection: "words",
-        filters: [{"operator":"eq","property_name":"speech_id","property_value":speech_id}],
+        filters: [{
+          "operator": "eq",
+          "property_name": "speech_id",
+          "property_value": speech_id
+        }],
         groupBy: "text",
         timeframe: "this_14_days",
         timezone: "UTC"
