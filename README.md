@@ -1,3 +1,5 @@
+You need to set the BF_USER, BF_PASS, KEEN_WRITE_KEY, and KEEN_READ_KEY environment variables.
+
 # Speech to Text Browser Application
 
   The [Speech to Text][service_url] service uses IBM's speech recognition capabilities to convert speech in multiple languages into text. The transcription of incoming audio is continuously sent back to the client with minimal delay, and it is corrected as more speech is heard. The service is accessed via a WebSocket interface; a REST HTTP interface is also available;

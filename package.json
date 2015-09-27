@@ -10,7 +10,9 @@
     "harmon": "~1.3.1",
     "http-proxy": "~1.11.1",
     "transformer-proxy": "~0.3.1",
-    "watson-developer-cloud": "~0.9.19"
+    "watson-developer-cloud": "~0.9.19",
+    "keen-js": "~3.2.7",
+    "bcrypt": "~0.8.5"
   },
   "engines": {
     "node": "0.10.x"
