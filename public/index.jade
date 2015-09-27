@@ -1,0 +1,101 @@
+doctype html
+html(lang='en')
+  head
+    meta(charset='utf-8')
+    meta(http-equiv='X-UA-Compatible', content='IE=edge')
+    meta(name='viewport', content='width=device-width, initial-scale=1')
+    title Speech to Text
+    link(href='css/watson-bootstrap-style.css', rel='stylesheet')
+    link(href='css/browser-compatibility.css', rel='stylesheet')
+    link(href='css/demo-stt.css', rel='stylesheet')
+  body
+    // top nav section
+    .navbar-wrapper
+      .navbar.navbar-default.navbar-fixed-top(role='navigation')
+        .container
+          // IBM Watson Logo
+          .navbar-header
+            a.navbar-brand.no-underline(href='/')
+              |  Butterfly
+          .float-right
+            ul.nav.navbar-nav
+              li
+                a.no-underline(href='/') Home
+          // .navbar right
+        // .container
+      // .navbar
+    // .navbar-wrapper
+    // Service Description Bar
+    .header
+      .container
+        .col-lg-2.col-md-2.hidden-xs.hidden-sm
+          img.service-icon(src='images/stt.svg')
+        // .col-lg-2
+        .col-lg-10.col-md-10.col-xs-12
+          h1 Butterfly
+          p
+            | Become a better presenter! Do you have a dream? Use our app to present a powerful message. 
+            // .resources
+        // .col-lg-10
+      // .container
+    // .header
+    // Step 1 Section
+    .container
+      // Step 3 Section
+      // First column of inputs
+      .row
+          .row
+            // Buttons
+            .form-group
+              .center-block.btn-group(role='group', aria-label='...')
+                button#recordButton.button-row.btn.btn-success.nav-inverse-color.center-block
+                  img#microphoneIcon.icon(src='images/microphone.svg')
+                  span.nav-label Start Presentation
+                button#fileUploadTarget.button-row.btn.btn-success.nav-inverse-color.center-block
+                  img.icon(src='images/upload.svg')
+                  span.nav-label Select File
+        .col-lg-12.col-md-12.col-sm-12    
+          h2 Transcribe Audio
+          .col-lg-8.col-md-12.col-sm-12
+            p.help-block(style='padding-right: 3em;')
+              | Use your microphone (compatible only with 
+              a(href='https://www.google.com/intl/en/chrome/browser/desktop/') Google Chrome
+              |  and 
+              a(href='https://www.mozilla.org/en-US/firefox/new/') Mozilla Firefox
+              | ), upload pre-recorded audio (WAV containing uncompressed audio or FLAC file formats), drag and drop recorded audio onto the page, or use the audio samples provided. The returned text includes metadata that provides the timestamps for start and end times of individual words, confidence scores behind those words, and alternative hypotheses for phrases.
+        // .col-lg-12
+        .row
+          .col-lg-4.col-md-6.col-sm-12
+            .dropdown
+              button#dropdownMenu1.btn.btn-default.dropdown-toggle(type='button', data-toggle='dropdown', aria-expanded='true')
+                span#dropdownMenuDefault.dropdown-text US English broadband model (16KHz) 
+                span.caret
+              ul#dropdownMenuList.dropdown-menu(role='menu', aria-labelledby='dropdownMenu1')
+          // .col-lg-6
+        // row
+        .row
+          .col-lg-12.col-md-12.col-sm-12
+            .audioParent
+              audio.audio(style='display:none', controls='')
+                | Your browser does not support the audio element.
+        // row
+        
+        // Spacer
+        // TODO: Move this to CSS
+        .row
+          .col-lg-12.col-md-12.col-sm-12
+            br
+            br
+          // /.col
+        // /.row
+      // /.container
+      // for file upload dialog in toolbar
+      input#fileUploadDialog(style='display:none', type='file')
+      // Place js files at the end of the document, with fallbacks for CDNs
+      script(src='https://code.jquery.com/jquery-1.11.3.min.js')
+      script.
+        window.jQuery || document.write('<script src="js/jquery-1.11.3.min.js"><\\/script>')
+      script(src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js')
+      script.
+        (typeof $().emulateTransitionEnd == 'function')|| document.write('<script src="js/bootstrap-3.3.5.min.js"><\\/script>')
+      script(src='js/main.js')
