@@ -40,7 +40,15 @@ var credentials = extend(config, bluemix.getServiceCreds('speech_to_text'));
 var authorization = watson.authorization(credentials);
 
 // Setup static public directory
+app.set('views', path.join(__dirname , './public'));
 app.use(express.static(path.join(__dirname , './public')));
+// use jade as our rendering engine
+app.set('view engine', 'jade');
+
+// Root
+app.get('/', function (req, res) {
+  res.render('index.jade');
+});
 
 // Get token from Watson using your credentials
 app.get('/token', function(req, res) {
