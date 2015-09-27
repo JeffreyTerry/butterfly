@@ -43,7 +43,7 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
 
     function onOpen(socket) {
       console.log('Socket opened');
-      handler.onOpen(socket);
+      handler.onOpen();
     }
 
     function onListening(socket) {
@@ -52,7 +52,9 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
     }
 
     function onMessage(msg) {
-      handler.onMessage(msg);
+        if(msg.results){
+                handler.onMessage(msg);
+        }
     }
 
     function onError(evt) {
@@ -63,11 +65,10 @@ exports.handleFileUpload = function(token, model, file, contentType, callback, o
 
     function onClose(evt) {
       localStorage.setItem('currentlyDisplaying', false);
+      handler.onClose();
       onend(evt);
-      handler.onClose(evt);
       console.log('Socket closing: ', evt);
     }
 
     initSocket(options, onOpen, onListening, onMessage, onError, onClose);
 }
-

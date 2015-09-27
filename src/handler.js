@@ -1,11 +1,14 @@
 var $ = require('jquery');
 var keenClient = require('./keen').client;
+var timer = require('./timer.js')
+
 
 var beganRecording;
 var speech = {};
 speech.transcript = '';
 speech.words = [];
 var hash = '' + new Date();
+var timer = new timer();
 
 exports.onMessage = function(msg) {
     // console.log('Mic socket msg: ', msg);
@@ -105,12 +108,13 @@ function sendSpeechToKeen(speech) {
         isStacked: true
       }
     });
-
+    $('#wordFreq').css('display','block');
     $('#loading-bar').css('display', 'none');
-  }, 1000);
+  }, 15000);
 }
 
-exports.onClose = function(evt) {
+exports.onClose = function() {
+  timer.stop();
   var stoppedRecording = new Date();
   speech.duration = stoppedRecording - beganRecording;
   $('#resultsText').html(speech.transcript);
@@ -119,5 +123,8 @@ exports.onClose = function(evt) {
 
 exports.onOpen = function(socket) {
     beganRecording = new Date();
+    timer.start();
+    timer.addEventListener('secondsUpdated', function(e) {
+      $('#timer').html(timer.getTimeValues().toString());
+    });
 }
-

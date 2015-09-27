@@ -5,10 +5,6 @@ var display = require('./views/displaymetadata');
 var handler = require('./handler');
 
 exports.handleMicrophone = function(token, model, mic, callback) {
-  timer.start();
-  timer.addEventListener('secondsUpdated', function(e) {
-    $('#timer').html(timer.getTimeValues().toString());
-  });
 
   if (model.indexOf('Narrowband') > -1) {
     var err = new Error('Microphone transcription cannot accomodate narrowband models, please select another');
