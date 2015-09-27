@@ -334,3 +334,7 @@ div#timer {
     font-size: 65px;
     padding-bottom: 10px;
 }
+
+#wordFreq{
+    display: none;
+}
