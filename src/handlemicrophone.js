@@ -127,7 +127,7 @@ exports.handleMicrophone = function(token, model, mic, callback) {
 
       $('#loading-bar').css('display', 'none');
       $('#chart-container').css('display', 'block');
-    }, 10000);
+    }, 15000);
     //     }
     //   });
     // });
