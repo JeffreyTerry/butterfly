@@ -44,51 +44,55 @@ html(lang='en')
       // Step 3 Section
       // First column of inputs
       .row
+        .col-xs-6
+            button#recordButton.btn.btn-success.btn-block(type='button')
+              img#microphoneIcon.icon(src='images/microphone.svg')
+              span.nav-label Start Presentation
+        .col-xs-6
+          button#fileUploadTarget.btn.btn-success.btn-block(type='button')
+            img.icon(src='images/upload.svg')
+            span.nav-label Select File
+          //- // Buttons
+          //- .form-group(style='margin: auto;')
+          //-   .center-block.btn-group(role='group', aria-label='...')
+      .row#chart-container
+        .col-xs-12
           .row
-            // Buttons
-            .form-group
-              .center-block.btn-group(role='group', aria-label='...')
-                button#recordButton.button-row.btn.btn-success.nav-inverse-color.center-block
-                  img#microphoneIcon.icon(src='images/microphone.svg')
-                  span.nav-label Start Presentation
-                button#fileUploadTarget.button-row.btn.btn-success.nav-inverse-color.center-block
-                  img.icon(src='images/upload.svg')
-                  span.nav-label Select File
-        .col-lg-12.col-md-12.col-sm-12
-          .well
-            form.form-horizontal(autocomplete='off')
-              div(role='tabpanel')
-                // Nav tabs
-                ul.nav.nav-tabs(role='tablist')
-                  li.active(role='presentation')
-                    a(href='#home2', aria-controls='home', role='tab', data-toggle='tab') Text
-                .hr-tab
-                fieldset
-                  .row.error-row
-                    .col-lg-12
-                      #errorAlert
-                        span#errorMessage
-                        a#errorClose.pull-right(href='#') ×
-                  .row.notification-row
-                    .col-lg-12
-                      #notificationAlert
-                        span#notificationMessage
-                        a#notificationClose.pull-right(href='#') ×
-                  .form-group.row.tabpanel-row
-                    .col-lg-12
-                      .tab-content
-                        #home2.tab-pane.active(role='tabpanel')
-                          textarea#resultsText(readonly='')
-                    // .col-lg-12 
-          .col-sm-6.col-md-3
-            .chart-wrapper
-              .chart-title
-                | Cell Title
-              .chart-stage
-                #word-frequency-bar-chart
-                  // chart goes here!
-              .chart-notes
-                | Notes about this chart
+            .well
+              form.form-horizontal(autocomplete='off')
+                div(role='tabpanel')
+                  // Nav tabs
+                  ul.nav.nav-tabs(role='tablist')
+                    li.active(role='presentation')
+                      a(href='#home2', aria-controls='home', role='tab', data-toggle='tab') Text
+                  .hr-tab
+                  fieldset
+                    .row.error-row
+                      .col-lg-12
+                        #errorAlert
+                          span#errorMessage
+                          a#errorClose.pull-right(href='#') ×
+                    .row.notification-row
+                      .col-lg-12
+                        #notificationAlert
+                          span#notificationMessage
+                          a#notificationClose.pull-right(href='#') ×
+                    .form-group.row.tabpanel-row
+                      .col-lg-12
+                        .tab-content
+                          #home2.tab-pane.active(role='tabpanel')
+                            textarea#resultsText(readonly='')
+                      // .col-lg-12 
+          .row
+            .col-sm-6.col-md-3
+              .chart-wrapper
+                .chart-title
+                  | Cell Title
+                .chart-stage
+                  #grid-1-1
+                    // chart goes here!
+                .chart-notes
+                  | Notes about this chart
 
         // .col-lg-12
         .row
